@@ -1,15 +1,23 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const ConfirmedRide = (props) => {
+const FinishRide = (props) => {
   return (
     <div>
       <h5 className='p-3 text-center w-[93%] absolute top-0 ' onClick={() => {
-        props.setVechiclePanel(false)
+        props.setFinishRidePanel(false)
       }}><i className='text-3xl text-gray-100 ri-arrow-down-wide-line'></i></h5>
-      <h2 className='text-2xl fonrt-semibold mb-5'>confirm your Ride to Start</h2>
+      <h2 className='text-2xl fonrt-semibold mb-5'>Finish this Ride</h2>
+
+      <div className='flex items-center justify-between mt-4 p-4 border-2 border-yellow-400 rounded-lg'>
+        <div className='flex items-center gap-3 '>
+          <img className='h-10 w-10 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlMd7stpWUCmjpfRjUsQ72xSWikidbgaI1w&s" alt="" />
+          <h2 className='text-lg font-medium'>Harshita Patel</h2>
+        </div>
+        <h5 className='text-lg font-semibold '>2.2 KM </h5>
+      </div>
 
       <div className='flex gap-2 justify-between flex-col items-center'>
-        <img className='h-20' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCKxobWsqpOYQilwWnLIdmfuU-af_USUUzY0ztgXUIYo6Dt1tKWA0WDND0rv-bbIa3wdU&usqp=CAU" alt="" />
       </div>
       <div className='w-full mt-5'>
         <div className='flex items-center gap-5 p-3 border-b-3'>
@@ -34,13 +42,16 @@ const ConfirmedRide = (props) => {
           </div>
         </div>
       </div>
-      <button onClick={() => {
-        props.setVehicleFound(true)
-        props.setVechiclePanel(false)
-      }} className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Confirm</button>
-    </div>
 
+      <div className='mt-10 w-full'>
+
+        <Link to='/captain-home' className='w-full mt-5 flex text-lg justify-center bg-green-600 text-white font-semibold p-3 rounded-lg'>Finish Ride</Link>
+
+        {/* <p className='mt-10 text-xs'>click on finish ride button if you have completed the payment.</p> */}
+
+      </div>
+    </div>
   )
 }
 
-export default ConfirmedRide
+export default FinishRide

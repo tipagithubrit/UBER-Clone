@@ -29,8 +29,6 @@ const UserLogin = () => {
       navigate('/captain-home')
 
     }
-
-
     setEmail('')
     setPassword('')
   }
