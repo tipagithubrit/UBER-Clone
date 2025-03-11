@@ -1,5 +1,5 @@
 const { default: mongoose } = require('mongoose')
-const monngoose = require('mongoose')
+// const monngoose = require('mongoose')
 
 const blacklistTokenSchema = new mongoose.Schema({
   token: {
