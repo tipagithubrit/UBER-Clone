@@ -1,4 +1,6 @@
 // const socketIo = require('socket.io')
+// const userModel = require('./models/user.model');
+// const captainModel = require('./models/captain.model')
 
 
 // let io;
@@ -13,6 +15,20 @@
 
 //   io.on('connection', (socket) => {
 //     console.log(`Client connected : ${socket.id}`);
+
+//     socket.on('join', async (data) => {
+//       const { userId, userType } = data;
+
+//       if (userType === 'user') {
+//         await userModel.findByIdAndUpdate(userId, {
+//           socketId: socket.id
+//         });
+//       } else if (userType === 'captain') {
+//         await captainModel.findByIdAndUpdate(userId, {
+//           socketId: socket.id
+//         })
+//       }
+//     });
 
 //     socket.on('disconnect', () => {
 //       console.log(`Client disconnected: ${socket.id}`);
@@ -34,32 +50,53 @@
 // module.exports = { initializeSocket, sendMessageToSocketId }
 
 
-
-
-const { Server } = require("socket.io");
+const socketIo = require('socket.io');
+const userModel = require('./models/user.model');
+const captainModel = require('./models/captain.model');
 
 let io;
 
 function initializeSocket(server) {
-  io = new Server(server, {
+  io = socketIo(server, {
     cors: {
       origin: "*",
-      methods: ["GET", "POST"],
-    },
+      methods: ['GET', 'POST']
+    }
   });
 
-  io.on("connection", (socket) => {
-    console.log(`🟢 Client connected: ${socket.id}`);
+  io.on('connection', (socket) => {
+    console.log(`Client connected : ${socket.id}`);
 
-    socket.on("message", (data) => {
-      console.log(`📩 Message from client: ${data}`);
-      socket.emit("message", `Server received: ${data}`);
+    socket.on('join', async (data) => {
+      if (data) {
+        const { userId, userType } = data;
+
+        if (userType === 'user') {
+          await userModel.findByIdAndUpdate(userId, {
+            socketId: socket.id
+          });
+        } else if (userType === 'captain') {
+          await captainModel.findByIdAndUpdate(userId, {
+            socketId: socket.id
+          });
+        }
+      } else {
+        console.error("Received null or undefined data in 'join' event");
+      }
     });
 
-    socket.on("disconnect", () => {
-      console.log(`🔴 Client disconnected: ${socket.id}`);
+    socket.on('disconnect', () => {
+      console.log(`Client disconnected: ${socket.id}`);
     });
   });
 }
 
-module.exports = { initializeSocket };
+function sendMessageToSocketId(socketId, message) {
+  if (io) {
+    io.to(socketId).emit('message', message);
+  } else {
+    console.log('socket.io not initialized');
+  }
+}
+
+module.exports = { initializeSocket, sendMessageToSocketId };
