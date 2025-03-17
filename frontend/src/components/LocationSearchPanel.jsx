@@ -1,12 +1,13 @@
 import React from 'react'
 
-const LocationSearchPanel = ({ suggestions, setVechiclePanel, setPanelOpen, setPickup, setDestination, activeField }) => {
+const LocationSearchPanel = ({ suggestions, setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField }) => {
 
   const handleSuggestionClick = (suggestion) => {
+    const suggestionData = suggestion.description; // Extracting the relevant data from the suggestion object
     if (activeField === 'pickup') {
-      setPickup(suggestion)
+      setPickup(suggestionData)
     } else if (activeField === 'destination') {
-      setDestination(suggestion)
+      setDestination(suggestionData)
     }
     // setVehiclePanel(true)
     // setPanelOpen(false)
@@ -19,7 +20,7 @@ const LocationSearchPanel = ({ suggestions, setVechiclePanel, setPanelOpen, setP
         suggestions.map((elem, idx) => (
           <div key={idx} onClick={() => handleSuggestionClick(elem)} className='flex gap-4 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start'>
             <h2 className='bg-[#eee] h-8 flex items-center justify-center w-12 rounded-full'><i className="ri-map-pin-fill"></i></h2>
-            <h4 className='font-medium'>{elem}</h4>
+            <h4 className='font-medium'>{elem.description}</h4>
           </div>
         ))
       }

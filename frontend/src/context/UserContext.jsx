@@ -12,6 +12,7 @@ const UserContext = ({ children }) => {
     }
   });
 
+
   return (
     <UserDataContext.Provider value={{ user, setUser }}>
       {children}
@@ -20,3 +21,8 @@ const UserContext = ({ children }) => {
 };
 
 export default UserContext;
+
+
+
+
+
