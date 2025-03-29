@@ -114,7 +114,7 @@ async function getFare(pickup, destination) {
     moto: Math.round(baseFare.moto + ((distanceTime.distance.value / 1000) * perKmRate.moto) + ((distanceTime.duration.value / 60) * perMinuteRate.moto))
   };
 
-  console.log('Fare:', fare); // Log calculated fare
+  // console.log('Fare:', fare); // Log calculated fare
 
   return fare;
 }
